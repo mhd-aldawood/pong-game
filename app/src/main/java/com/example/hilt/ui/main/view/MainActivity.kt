@@ -30,10 +30,11 @@ class MainActivity : AppCompatActivity() {
         binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
         binding.viewModel=mainViewModel
         binding.lifecycleOwner=this
-        makeApiCall()
+
         requestPermission()
         setupUI()
         setupObserver()
+        makeApiCall()
 
     }
 
