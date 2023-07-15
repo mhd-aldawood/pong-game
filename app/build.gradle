@@ -9,6 +9,14 @@ plugins {
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\Mohamad Aldawood\\AndroidStudioProjects\\hilt\\app\\key.jks')
+            storePassword '1234567890'
+            keyAlias 'key0'
+            keyPassword '1234567890'
+        }
+    }
     compileSdk 33
 
     defaultConfig {
@@ -25,9 +33,10 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'BASE_URL', '"https://5e510330f2c0d300147c034c.mockapi.io/'
+            buildConfigField 'String', 'BASE_URL', '"https://5e510330f2c0d300147c034c.mockapi.io/"'
+            signingConfig  signingConfigs.release
 
         }
 
