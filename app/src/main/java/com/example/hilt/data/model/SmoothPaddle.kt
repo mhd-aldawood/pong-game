@@ -1,8 +1,9 @@
 package com.example.hilt.data.model
 
 import android.view.MotionEvent
+import com.example.hilt.ui.main.interfaces.SmoothPaddleOperation
 
-class SmoothPaddle(side: Side, x: Float, y: Float, difficulty: Difficulty) : PaddleAbstract(side, x, y, difficulty) {
+class SmoothPaddle(side: Side, x: Float, y: Float, difficulty: Difficulty) : PaddleAbstract(side, x, y, difficulty) ,SmoothPaddleOperation{
     private var movementState: MovementState = MovementState.MOVING_NOT
     private val speed = 30f
 
@@ -23,7 +24,7 @@ class SmoothPaddle(side: Side, x: Float, y: Float, difficulty: Difficulty) : Pad
         }
     }
 
-    fun update(height: Int) {
+    override fun update(height: Int) {
         when (movementState) {
             MovementState.MOVING_DOWN -> {
                 if (paddleY >= 0)

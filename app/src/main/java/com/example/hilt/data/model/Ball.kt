@@ -5,9 +5,10 @@ import android.graphics.Paint
 import android.graphics.RectF
 import androidx.core.content.ContextCompat
 import com.example.hilt.R
+import com.example.hilt.ui.main.interfaces.BallOperation
 import kotlin.random.Random
 
-class Ball(var initX: Float, private var initY: Float, difficulty: Difficulty) {
+class Ball(var initX: Float, private var initY: Float, difficulty: Difficulty):BallOperation {
     var ballX = initX
         private set
     var ballY = initY
@@ -39,14 +40,14 @@ class Ball(var initX: Float, private var initY: Float, difficulty: Difficulty) {
         resetBall()
     }
 
-    fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas) {
         val paint = Paint()
         paint.color = ContextCompat.getColor(gameView.context, R.color.colorAccent)
 
         canvas.drawOval(RectF(ballX, ballY, ballX + size, ballY + size), paint)
     }
 
-    fun resetBall() {
+    override fun resetBall() {
         ballX = initX
         ballY = initY
         dx = (defdx + defdx * Random.nextFloat()) * randomNegativity()
@@ -54,23 +55,22 @@ class Ball(var initX: Float, private var initY: Float, difficulty: Difficulty) {
         flipDirection(SpeedComponent.X)
     }
 
-    fun setUpGameView(gameView: GameView) {
+    override fun setUpGameView(gameView: GameView) {
         this.gameView = gameView
     }
 
-    fun flipDirection(component: SpeedComponent) {
+    override  fun flipDirection(component: SpeedComponent) {
         when (component) {
             SpeedComponent.X -> dx *= -1
             SpeedComponent.Y -> dy *= -1
         }
     }
 
-    private fun funnyBounce() {
+    override  fun funnyBounce() {
         dy *= Random.nextDouble(1.0, 1.05).toFloat()
         dx *= Random.nextDouble(1.0, 1.05).toFloat()
     }
-
-    private fun checkWallBounce() {
+    override fun checkWallBounce() {
         if (ballY <= 0f || ballY + size >= gameView.height.toFloat()) {
             playWallBounceSound()
             flipDirection(SpeedComponent.Y)
@@ -78,28 +78,28 @@ class Ball(var initX: Float, private var initY: Float, difficulty: Difficulty) {
         }
     }
 
-    private fun playWallBounceSound() {
+    override fun playWallBounceSound() {
         gameView.playSound(R.raw.hit)
     }
 
-    fun playPaddleBounceSound() {
+    override fun playPaddleBounceSound() {
         gameView.playSound(R.raw.hit2)
     }
 
-    fun move() {
+    override fun move() {
         ballX += dx
         ballY += dy
         checkWallBounce()
     }
 
-    fun kill() {
+    override fun kill() {
         dx = 0f
         dy = 0f
         ballX = initX
         ballY = initY
     }
 
-    private fun randomNegativity(): Int {
+    override fun randomNegativity(): Int {
         return Math.pow((-1).toDouble(), Random.nextInt(2).toDouble()).toInt()
     }
 

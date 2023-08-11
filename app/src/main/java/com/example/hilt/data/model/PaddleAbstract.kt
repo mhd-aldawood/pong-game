@@ -4,8 +4,9 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.view.MotionEvent
+import com.example.hilt.ui.main.interfaces.PaddleAbstractOperation
 
-abstract class PaddleAbstract(private val side: Side, x: Float, y: Float, difficulty: Difficulty) {
+abstract class PaddleAbstract(private val side: Side, x: Float, y: Float, difficulty: Difficulty):PaddleAbstractOperation {
     var paddleX = x
         internal set
     var paddleY = y
@@ -21,11 +22,11 @@ abstract class PaddleAbstract(private val side: Side, x: Float, y: Float, diffic
         }
     }
 
-    internal fun updatePosition(newPos: Float) {
+   override fun updatePosition(newPos: Float) {
         paddleY = newPos
     }
 
-    fun draw(canvas: Canvas) {
+   override fun draw(canvas: Canvas) {
         val rect: RectF = when (side) {
             Side.A -> {
                 RectF(paddleX, paddleY, paddleX + width, paddleY + height)

@@ -1,5 +1,6 @@
 package com.example.hilt.data.model
 
+import com.example.hilt.ui.main.interfaces.GameAbstractOperation
 import kotlin.random.Random
 
 abstract class GameAbstract (
@@ -7,11 +8,11 @@ abstract class GameAbstract (
     private val paddleB: PaddleAbstract,
     private val ball: Ball,
     private val difficulty: Difficulty
-) {
+):GameAbstractOperation {
     abstract fun referee(width: Int): Boolean
     abstract fun bounce()
 
-    fun checkBounce(): Boolean {
+   override fun checkBounce(): Boolean {
         val left = paddleA.paddleX + paddleA.width
         val right = paddleB.paddleX - paddleB.width
 

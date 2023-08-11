@@ -4,7 +4,6 @@
     <string name="logo">logo</string>
     <string-array name="modeTypes">
         <item>One player</item>
-        <item>Two players</item>
     </string-array>
     <string-array name="difficulty_types">
         <item>Easy</item>

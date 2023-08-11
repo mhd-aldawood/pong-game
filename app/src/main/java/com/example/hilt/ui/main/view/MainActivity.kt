@@ -9,6 +9,7 @@ import com.example.hilt.R
 import com.example.hilt.data.model.Settings
 import com.example.hilt.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -27,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    private var settings = Settings()
 
 
     fun settingsActivity(view: View) {
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     fun play(view: View) {
         val intent = Intent(this, GameActivity::class.java)
-        intent.putExtra("settings", settings)
+
         startActivity(intent)
     }
 }
