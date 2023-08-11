@@ -3,8 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/drawable/custom_button.xml" value="0.1025" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1025" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1025" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/layout/activity_game.xml" value="0.1675213675213675" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/layout/activity_settings.xml" value="0.22" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/layout/custom_row.xml" value="0.144017094017094" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/layout/custom_spinner.xml" value="0.144017094017094" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/layout/dialog_settings.xml" value="0.144017094017094" />
         <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/layout/item_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/menu/main.xml" value="0.1" />
+        <entry key="..\:/Users/Mohamad Aldawood/AndroidStudioProjects/hilt/app/src/main/res/menu/main_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
