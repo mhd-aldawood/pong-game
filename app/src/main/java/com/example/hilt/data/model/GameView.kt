@@ -15,7 +15,6 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.annotation.RequiresApi
-import com.bumptech.glide.Glide.init
 import com.example.hilt.R
 import com.example.hilt.ui.main.view.GameActivity
 import java.util.*
@@ -40,20 +39,10 @@ class GameView(context: Context, attrs: AttributeSet) : SurfaceView(context, att
     }
 
 
-    fun playSound(resId: Int) {
-        Thread {
-            val player = MediaPlayer.create(context, resId)
-            player.start()
-            player.setOnCompletionListener {
-                it.release()
-            }
-        }.start()
-    }
 
     fun update() {
         game.bounce()
         if (game.referee(width)) {
-            playSound(R.raw.score_sound2)
             if (game is OnePlayerGame) {
                 sharedPreferences.edit().putInt("best_score", (game as OnePlayerGame).bestScore).apply()
             }
@@ -63,11 +52,12 @@ class GameView(context: Context, attrs: AttributeSet) : SurfaceView(context, att
             }
         }
 
-        if (paddleA is SmoothPaddle && paddleB is SmoothPaddle) {
+        if (paddleA is SmoothPaddle ) {
             (paddleA as SmoothPaddle).update(height)
-            (paddleB as SmoothPaddle).update(height)
-        }
 
+        }
+        if(paddleB is SmoothPaddle)
+        (paddleB as SmoothPaddle).changeMovementState(ball.ballDirection(),height)
         ball.move()
     }
 
@@ -88,8 +78,6 @@ class GameView(context: Context, attrs: AttributeSet) : SurfaceView(context, att
         for (i in 0 until event.pointerCount) {
             if (event.getX(i) < width / 2) {
                 paddleA.movePaddle(event, i, height)
-            } else {
-                paddleB.movePaddle(event, i, height)
             }
         }
         return true
@@ -111,26 +99,16 @@ class GameView(context: Context, attrs: AttributeSet) : SurfaceView(context, att
                 textPaint.textSize = 100f
                 textPaint.typeface = resources.getFont(R.font.faster_one)
                 it.drawText("BEST: ${(game as OnePlayerGame).bestScore}", xPos, 100f, textPaint)
-            } else {
-                // TODO: Points oriented for each player.
-                it.drawText(
-                    "${(game as TwoPlayersGame).pointsA} : ${(game as TwoPlayersGame).pointsB}",
-                    xPos, yPos, textPaint
-                )
             }
         }
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         // Set up the paddles.
-        paddleA = when (settings.difficulty) {
-            Difficulty.EASY -> SimplePaddle(Side.A, 0f, height / 2f, settings.difficulty)
-            else -> SmoothPaddle(Side.A, 0f, height / 2f, settings.difficulty)
-        }
-        paddleB = when (settings.difficulty) {
-            Difficulty.EASY -> SimplePaddle(Side.B, width.toFloat(), height / 2f, settings.difficulty)
-            else -> SmoothPaddle(Side.B, width.toFloat(), height / 2f, settings.difficulty)
-        }
+        paddleA =  SmoothPaddle(Side.A, 0f, height / 2f, settings.difficulty)
+
+        paddleB = SmoothPaddle(Side.B, width.toFloat(), height / 2f, settings.difficulty)
+
 
         // Set up the ball.
         ball = Ball(width / 2f, height / 2f, settings.difficulty)
@@ -138,8 +116,6 @@ class GameView(context: Context, attrs: AttributeSet) : SurfaceView(context, att
         ball.setUpGameView(this)
 
         // Set up the game.
-        when (settings.pvp) {
-            Mode.ONE_PLAYER -> {
                 game = OnePlayerGame(
                     paddleA,
                     paddleB,
@@ -147,11 +123,6 @@ class GameView(context: Context, attrs: AttributeSet) : SurfaceView(context, att
                     settings.difficulty,
                     sharedPreferences.getInt("best_score", 0)
                 )
-            }
-            Mode.TWO_PLAYERS -> {
-                game = TwoPlayersGame(paddleA, paddleB, ball, settings.difficulty)
-            }
-        }
 
         thread.running = true
         thread.start()
@@ -159,7 +130,8 @@ class GameView(context: Context, attrs: AttributeSet) : SurfaceView(context, att
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         paddleB.paddleX = width.toFloat()
-        ball.initX = width / 2f - ball.size / 2    }
+        ball.initX = width / 2f - ball.size / 2
+    }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         thread.running = false

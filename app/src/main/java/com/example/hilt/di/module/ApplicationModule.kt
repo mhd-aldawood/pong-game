@@ -18,11 +18,4 @@ import dagger.hilt.components.SingletonComponent
 class ApplicationModule {
 
 
-
-
-
-    //
-//    @Provides
-//    @Singleton
-//    fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
 }

@@ -1,5 +1,6 @@
 package com.example.hilt.data.model
 
+import android.util.Log
 import android.view.MotionEvent
 import com.example.hilt.ui.main.interfaces.SmoothPaddleOperation
 
@@ -24,6 +25,7 @@ class SmoothPaddle(side: Side, x: Float, y: Float, difficulty: Difficulty) : Pad
         }
     }
 
+
     override fun update(height: Int) {
         when (movementState) {
             MovementState.MOVING_DOWN -> {
@@ -37,12 +39,26 @@ class SmoothPaddle(side: Side, x: Float, y: Float, difficulty: Difficulty) : Pad
             MovementState.MOVING_NOT -> {
             }
         }
+        Log.i(TAG, "changeMovementState: "+paddleY)
+
+    }
+    private  val TAG = "SmoothPaddle"
+    override fun changeMovementState(direction: String, height: Int) {
+        movementState = when (direction){
+            "up" -> {
+                MovementState.MOVING_UP
+            }
+            else -> {
+                MovementState.MOVING_DOWN
+            }
+        }
+        update(height)
     }
 
-    enum class MovementState {
-        MOVING_UP,
-        MOVING_DOWN,
-        MOVING_NOT
-    }
+
 }
-
+public enum class MovementState {
+    MOVING_UP,
+    MOVING_DOWN,
+    MOVING_NOT
+}

@@ -10,9 +10,8 @@ interface BallOperation :General {
     fun flipDirection(component: Ball.SpeedComponent)
     fun funnyBounce()
     fun checkWallBounce()
-    fun playWallBounceSound()
-    fun playPaddleBounceSound()
     fun move()
     fun kill()
     fun randomNegativity(): Int
+    fun ballDirection():String
 }

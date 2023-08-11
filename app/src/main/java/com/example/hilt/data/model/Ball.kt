@@ -20,7 +20,9 @@ class Ball(var initX: Float, private var initY: Float, difficulty: Difficulty):B
 
     var dx = 15f
         private set
-    private var dy = 15f
+    public var dy = 15f
+    get() = field
+    var oldy=0f
 
     private lateinit var gameView: GameView
 
@@ -72,21 +74,14 @@ class Ball(var initX: Float, private var initY: Float, difficulty: Difficulty):B
     }
     override fun checkWallBounce() {
         if (ballY <= 0f || ballY + size >= gameView.height.toFloat()) {
-            playWallBounceSound()
+//            playWallBounceSound()
             flipDirection(SpeedComponent.Y)
             funnyBounce()
         }
     }
 
-    override fun playWallBounceSound() {
-        gameView.playSound(R.raw.hit)
-    }
-
-    override fun playPaddleBounceSound() {
-        gameView.playSound(R.raw.hit2)
-    }
-
     override fun move() {
+        oldy=ballY
         ballX += dx
         ballY += dy
         checkWallBounce()
@@ -101,6 +96,14 @@ class Ball(var initX: Float, private var initY: Float, difficulty: Difficulty):B
 
     override fun randomNegativity(): Int {
         return Math.pow((-1).toDouble(), Random.nextInt(2).toDouble()).toInt()
+    }
+
+    override fun ballDirection(): String {
+
+        if(ballY-oldy >0)
+            return "up"
+        else
+            return "dwon"
     }
 
     enum class SpeedComponent {

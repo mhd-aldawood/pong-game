@@ -11,21 +11,11 @@ class TwoPlayersGame(
     var pointsB: Int = 0
 
     override fun referee(width: Int): Boolean {
-        return when {
-            ball.ballX < 0f -> {
-                pointsB++
-                true
-            }
-            ball.ballX + ball.size > width -> {
-                pointsA++
-                true
-            }
-            else -> false
-        }
+       TODO() //implelemt two player
     }
 
     override fun bounce() {
-        checkBounce()
+
     }
 
 }
